@@ -13,7 +13,7 @@ def element_exists(driver, xpath):
         return False
 
 # Initializes the webdriver for the browser
-def initialize_driver(is_chrome=False, is_windows=False):
+def initialize_driver(is_chrome, is_windows):
 
     if is_chrome:
         opts = ChromeOptions()
@@ -33,10 +33,3 @@ def initialize_driver(is_chrome=False, is_windows=False):
     else:
         driver = webdriver.Firefox(options=opts, executable_path=driver_path)
     return driver
-
-# Returns an authenticated pydrive object
-def authenticate_google_drive():
-    gauth = GoogleAuth()
-    gauth.LoadCredentialsFile("google_drive_credentials.txt")
-    drive = GoogleDrive(gauth)
-    return drive
