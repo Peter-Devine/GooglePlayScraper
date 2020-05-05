@@ -17,9 +17,14 @@ def initialize_driver(is_chrome, is_windows):
 
     if is_chrome:
         opts = ChromeOptions()
+
+        # Disable images from loaded pages
+        prefs = {"profile.managed_default_content_settings.images": 2}
+        opts.add_experimental_option("prefs", prefs)
         driver_name = "chromedriver"
     else:
         opts = FirefoxOptions()
+
         driver_name = "geckodriver"
     opts.add_argument("--headless")
     opts.add_argument("--width=1920")
