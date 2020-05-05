@@ -1,19 +1,12 @@
-import io
-from selenium import webdriver
-from selenium.webdriver.chrome.options import Options as ChromeOptions
-from selenium.webdriver.firefox.options import Options as FirefoxOptions
-import os
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
-from selenium.common.exceptions import TimeoutException, WebDriverException, StaleElementReferenceException, NoSuchElementException
+from selenium.common.exceptions import NoSuchElementException
 import pandas as pd
-from pydrive.auth import GoogleAuth
-from pydrive.drive import GoogleDrive
 from tqdm import tqdm
 import argparse
 
-from scraping_utils import element_exists, initialize_driver, authenticate_google_drive
+from scraping_utils import element_exists, initialize_driver
 from google_play_utils import scroll
 from google_drive_utils import upload_df_to_gd, authenticate_google_drive
 
