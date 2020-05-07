@@ -8,7 +8,7 @@ import argparse
 
 from scraping_utils import element_exists, initialize_driver
 from google_play_utils import scroll
-from google_drive_utils import upload_df_to_gd, authenticate_google_drive, get_df_from_gd_csv
+from google_drive_utils import upload_df_to_gd, get_df_from_gd_csv
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--from_scratch", type=bool, nargs='?', const=True, default=False,
@@ -146,7 +146,7 @@ def upload_app_data_from_url(unique_app_page_url, counter, driver):
     # Make sure name only contains alphanumeric (There was a problem with pipes in file names)
     file_name = "".join(filter(str.isalnum, app_name)) + f"{counter}_appdata.csv"
 
-    upload_df_to_gd(file_name, app_data, "1qUYsYjND3hOAmBFS2XDgxhimHCvbTpvb")
+    upload_df_to_gd(file_name, app_data, "1h2lBOSqLvzSoa5ZJ8bdrCNzqBKa823YP")
 
 def upload_app_and_review_data(unique_app_page_urls, driver):
 
@@ -158,7 +158,7 @@ driver = initialize_driver(is_chrome=args.chrome, is_windows=args.windows)
 app_urls = get_app_links(driver)
 
 # Add the app urls that have been scraped in the past using the above function
-extra_app_urls = list(get_df_from_gd_csv("FILE ID", "FILE_NAME.csv")["URL"])
+extra_app_urls = list(get_df_from_gd_csv("1ABeb_tLdCMBEbsky3CjoPw6wRhRLOD0L", "extra_urls.csv")["URL"])
 app_urls = list(set(app_urls + extra_app_urls))
 
 upload_app_and_review_data(app_urls, driver)
