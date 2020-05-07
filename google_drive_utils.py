@@ -20,9 +20,9 @@ def upload_df_to_gd(file_name, df, folder_id):
     file_to_upload.Upload()
 
 # Gets a df from a csv contained on Google Drive
-def get_df_from_gd_csv(folder_id, file_name):
+def get_df_from_gd_csv(file_id, file_name):
     drive = authenticate_google_drive()
-    downloaded = drive.CreateFile({'id': folder_id})
+    downloaded = drive.CreateFile({'id': file_id})
     downloaded.GetContentFile(file_name)
     df = pd.read_csv(file_name)
     return df
