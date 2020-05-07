@@ -71,7 +71,7 @@ def get_app_links(driver):
 
     return unique_app_page_urls
 
-def upload_app_data_from_url(unique_app_page_url, driver):
+def upload_app_data_from_url(unique_app_page_url, counter, driver):
 
     driver.get(unique_app_page_url)
 
@@ -143,15 +143,16 @@ def upload_app_data_from_url(unique_app_page_url, driver):
 
     app_data = pd.DataFrame([app_data])
 
-    file_name = app_name + "_appdata.csv"
+    # Make sure name only contains alphanumeric (There was a problem with pipes in file names)
+    file_name = "".join(filter(str.isalnum, app_name)) + f"{counter}_appdata.csv"
 
     upload_df_to_gd(file_name, app_data, "1qUYsYjND3hOAmBFS2XDgxhimHCvbTpvb")
 
 def upload_app_and_review_data(unique_app_page_urls, driver):
 
-    for url in unique_app_page_urls:
+    for i, url in enumerate(unique_app_page_urls):
         print(url)
-        upload_app_data_from_url(url, driver)
+        upload_app_data_from_url(url, i, driver)
 
 driver = initialize_driver(is_chrome=args.chrome, is_windows=args.windows)
 app_urls = get_app_links(driver)
