@@ -13,7 +13,7 @@ overall_df = None
 for file_name, file_id in file_names:
     print(file_name)
     try:
-        app_df = get_df_from_gd_csv(file_id, "1h2lBOSqLvzSoa5ZJ8bdrCNzqBKa823YP", file_name)
+        app_df = get_df_from_gd_csv(file_id, file_name)
     except Exception as err:
         print(f"Failed by giving {err}")
         continue
