@@ -90,6 +90,8 @@ def upload_app_data_from_url(unique_app_page_url, driver):
      "aria-label")
     app_description = driver.find_element_by_xpath('//*[@itemprop="description"]/span').text
 
+    developer_url = driver.find_element_by_xpath('//a[text()="Visit website"]').get_attribute("href") if element_exists(driver, '//a[text()="Visit website"]') else None
+
     try:
         if element_exists(driver, '//*[contains(text(), "Reviews")]/../../c-wiz[1]/div[1]/div[1]'):
             average_rating = driver.find_element_by_xpath(
@@ -134,6 +136,7 @@ def upload_app_data_from_url(unique_app_page_url, driver):
      "App average rating": average_rating,
      "App number of reviews": number_of_reviews,
      "App rating distribution": rating_distributions,
+     "Developer URL": developer_url,
      "Similar apps cluster URL": similar_app_cluster_url,
      "Similar app URLs": similar_app_urls,
     })
