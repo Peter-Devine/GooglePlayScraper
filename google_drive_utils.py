@@ -2,6 +2,7 @@ import io
 import os
 from pydrive.auth import GoogleAuth
 from pydrive.drive import GoogleDrive
+import pandas as pd
 
 # Returns an authenticated pydrive object
 def authenticate_google_drive():
