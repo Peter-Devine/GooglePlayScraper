@@ -73,24 +73,29 @@ def get_app_links(driver):
 
 def upload_app_data_from_url(unique_app_page_url, counter, driver):
 
-    driver.get(unique_app_page_url)
+    try:
+        driver.get(unique_app_page_url)
 
-    app_data = {x.find_element_by_xpath("./div").text: x.find_element_by_xpath("./span").text for x in
-             driver.find_elements_by_xpath(
-                 '//*[contains(text(), "Additional Information")]/../../div[2]/div[1]/div') if
-             element_exists(x, "./span")}
+        app_data = {x.find_element_by_xpath("./div").text: x.find_element_by_xpath("./span").text for x in
+                 driver.find_elements_by_xpath(
+                     '//*[contains(text(), "Additional Information")]/../../div[2]/div[1]/div') if
+                 element_exists(x, "./span")}
 
-    app_name = driver.find_element_by_xpath('//*[@itemprop="name"]').text
-    app_company = driver.find_element_by_xpath(
-     '//*[@itemprop="name"]/../following-sibling::div/div[1]/div/span[1]').text
-    app_category = driver.find_element_by_xpath(
-     '//*[@itemprop="name"]/../following-sibling::div/div[1]/div/span[2]').text
-    app_price = driver.find_element_by_xpath(
-     '//*[@itemprop="name"]/../../../div[2]/div/div[2]/div/c-wiz/c-wiz/div/span/button').get_attribute(
-     "aria-label")
-    app_description = driver.find_element_by_xpath('//*[@itemprop="description"]/span').text
+        app_name = driver.find_element_by_xpath('//*[@itemprop="name"]').text
+        app_company = driver.find_element_by_xpath(
+         '//*[@itemprop="name"]/../following-sibling::div/div[1]/div/span[1]').text
+        app_category = driver.find_element_by_xpath(
+         '//*[@itemprop="name"]/../following-sibling::div/div[1]/div/span[2]').text
+        app_price = driver.find_element_by_xpath(
+         '//*[@itemprop="name"]/../../../div[2]/div/div[2]/div/c-wiz/c-wiz/div/span/button').get_attribute(
+         "aria-label")
+        app_description = driver.find_element_by_xpath('//*[@itemprop="description"]/span').text
 
-    developer_url = driver.find_element_by_xpath('//a[text()="Visit website"]').get_attribute("href") if element_exists(driver, '//a[text()="Visit website"]') else None
+        developer_url = driver.find_element_by_xpath('//a[text()="Visit website"]').get_attribute("href") if element_exists(driver, '//a[text()="Visit website"]') else None
+    except Exception as err:
+        print(f"No page found at {unique_app_page_url}. Giving error:\n\n{err}\n\n Skipping...\n\n")
+        return None
+
 
     try:
         if element_exists(driver, '//*[contains(text(), "Reviews")]/../../c-wiz[1]/div[1]/div[1]'):
